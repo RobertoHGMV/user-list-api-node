@@ -9,8 +9,12 @@ module.exports = {
         return await User.find();
     },
 
-    async getGetby(page, qtdPerPage) {
+    async getBy(page, qtdPerPage) {
         
+    },
+
+    async getByFirstName(firstName) {
+        return await User.findOne({ firstName: firstName });
     },
 
     async add(user) {

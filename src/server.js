@@ -14,5 +14,5 @@ mongoose.connect('mongodb+srv://roberto:admin@cluster0-yacpf.mongodb.net/user_li
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api', routes);
+// app.use('/api', routes);
 app.listen(3001);
