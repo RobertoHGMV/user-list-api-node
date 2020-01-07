@@ -5,9 +5,11 @@ const UserService = require('../services/UserService');
 module.exports = {
     async getByKey(req, res) {
         try {
-            const { id } = res.params;
-
-            return await UserService.getByKey(id);
+            const { id } = req.params;
+            
+            const user = await UserService.getByKey(id);
+            
+            return res.status(200).json(user);
         }
         catch(e) {
             return res.status(500).json(e);
@@ -16,7 +18,9 @@ module.exports = {
 
     async getAll(req, res) {
         try {
-            return await UserService.getAll();
+            const user = await UserService.getAll();
+
+            return res.status(200).json(user);
         }
         catch(e) {
             return res.status(500).json(e);
@@ -30,9 +34,11 @@ module.exports = {
             if (!errors.isEmpty())
                 return res.status(500).send({ errors: errors.array() });
             
-            const { FirstName, LastName } = req.body;
+            const { firstName, lastName } = req.body;
 
-            return UserService.add(FirstName, LastName);
+            const user = await UserService.add(firstName, lastName);
+            
+            return res.status(201).json(user);
         }
         catch(e) {
             return res.status(500).send(e);

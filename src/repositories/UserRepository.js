@@ -22,10 +22,10 @@ module.exports = {
     },
 
     async update(user) {
-        return User.updateOne(user);
+        await User.updateOne(user);
     },
 
     async delete(user) {
-        return User.deleteOne(user);
+        await User.deleteOne(user);
     }
 };

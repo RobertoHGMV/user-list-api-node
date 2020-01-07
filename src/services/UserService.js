@@ -14,16 +14,16 @@ module.exports = {
     },
 
     async add(firstName, lastName) {
-        const user = this.getByFirstName(firstName);
-
+        const user = await this.getByFirstName(firstName);
+        
         if (user)
             throw { error: `Usuário com nome ${firstName} já cadastrado` };
-
+            
         return await UserRepository.add({ firstName, lastName });
     },
 
     async update(id, firstName, lastName) {
-        const user = this.get(id);
+        const user = await this.get(id);
 
         if (!user)
             throw { error: `Usuário com código ${id} não encontrado` };
@@ -34,7 +34,7 @@ module.exports = {
     },
 
     async delete(id) {
-        const user = this.get(id);
+        const user = await this.get(id);
 
         if (!user)
             throw { error: `Usuário com código ${id} não encontrado` };
