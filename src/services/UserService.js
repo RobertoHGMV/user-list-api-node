@@ -22,13 +22,13 @@ module.exports = {
         return await UserRepository.add({ firstName, lastName });
     },
 
-    async update(id, firstName, lastName) {
-        const user = await this.get(id);
+    async update(user_id, firstName, lastName) {
+        const user = await this.getByKey(user_id);
 
         if (!user)
             throw { error: `Usuário com código ${id} não encontrado` };
-
-        await UserRepository.update({ _id: id, firstName, lastName });
+        
+        await UserRepository.update({ _id: user_id, firstName, lastName });
 
         return this.get(id);
     },

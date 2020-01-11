@@ -22,6 +22,7 @@ module.exports = {
     },
 
     async update(user) {
+        console.log(user);
         await User.updateOne(user);
     },
 

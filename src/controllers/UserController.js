@@ -52,9 +52,9 @@ module.exports = {
             if (!errors.isEmpty())
                 return res.status(500).send({ errors: errors.array() });
 
-            const { Id, FirstName, LastName } = req.body;
-
-            const user = await UserService.update(Id, FirstName, LastName);
+            const { id, firstName, lastName } = req.body;
+            
+            const user = await UserService.update(id, firstName, lastName);
 
             return res.status(200).json(user);
         }
