@@ -18,6 +18,6 @@ module.exports = {
         check('lastName').isLength({ min: 3 }).withMessage('Último nome deve ter mais que 3 caracteres'),
         UserController.update);
 
-        routes.delete('/v1/users/:id');
+        routes.delete('/v1/users/:id', UserController.delete);
     }
 };

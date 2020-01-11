@@ -65,8 +65,8 @@ module.exports = {
 
     async delete(req, res) {
         try {
-            const id = req.params;
-
+            const { id } = req.params;
+            
             await UserService.delete(id);
 
             return res.send(204).json({ msg: 'Operação realizada com sucesso' });

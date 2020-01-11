@@ -30,11 +30,11 @@ module.exports = {
         
         await UserRepository.update({ _id: user_id, firstName, lastName });
 
-        return this.get(id);
+        return this.getByKey(user_id);
     },
 
     async delete(id) {
-        const user = await this.get(id);
+        const user = await this.getByKey(id);
 
         if (!user)
             throw { error: `Usuário com código ${id} não encontrado` };
