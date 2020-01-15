@@ -8,11 +8,11 @@ module.exports = {
             const { id } = req.params;
             
             const user = await UserService.getByKey(id);
-            
-            return res.status(200).json(user);
+
+            return res.status(200).json({ success: true, message: "Operação realizada com sucesso", docs: user });
         }
         catch(e) {
-            return res.status(500).json(e);
+            return res.status(500).json({ success: false, message: e.message, docs: e });
         }
     },
 
@@ -21,11 +21,11 @@ module.exports = {
             const { page, qtdPerPage } = req.params;
 
             const users = await UserService.getBy(page, qtdPerPage);
-
-            return res.status(200).json({ docs: users });
+            
+            return res.status(200).json({ success: true, message: "Operação realizada com sucesso", docs: users.docs });
         }
         catch(e) {
-            return res.status(500).send(e);
+            return res.status(500).send({ success: false, message: e.message, docs: e });
         }
     },
 
@@ -33,10 +33,10 @@ module.exports = {
         try {
             const users = await UserService.getAll();
 
-            return res.status(200).json({ docs: users });
+            return res.status(200).json({ success: true, message: "Operação realizada com sucesso", docs: users });
         }
         catch(e) {
-            return res.status(500).json(e);
+            return res.status(500).json({ success: false, message: e.message, docs: e });
         }
     },
 
@@ -47,14 +47,14 @@ module.exports = {
             if (!errors.isEmpty())
                 return res.status(500).send({ errors: errors.array() });
             
-            const { firstName, lastName } = req.body;
-
-            const user = await UserService.add(firstName, lastName);
+            const { FirstName, LastName } = req.body;
             
-            return res.status(201).json(user);
+            const user = await UserService.add(FirstName, LastName);
+            
+            return res.status(201).json({ success: true, message: "Operação realizada com sucesso", docs: user });
         }
         catch(e) {
-            return res.status(500).send(e);
+            return res.status(500).send({ success: false, message: e.message, docs: e });
         }
     },
 
@@ -64,15 +64,15 @@ module.exports = {
 
             if (!errors.isEmpty())
                 return res.status(500).send({ errors: errors.array() });
-
-            const { id, firstName, lastName } = req.body;
             
-            const user = await UserService.update(id, firstName, lastName);
+            const { Id, FirstName, LastName } = req.body;
             
-            return res.status(200).json(user);
+            const user = await UserService.update(Id, FirstName, LastName);
+            
+            return res.status(200).json({ success: true, message: "Operação realizada com sucesso", docs: user });
         }
         catch(e) {
-            return res.status(500).send(e);
+            return res.status(500).send({ success: false, message: e.message, docs: e });
         }
     },
 
@@ -82,10 +82,11 @@ module.exports = {
             
             await UserService.delete(id);
 
-            return res.sendStatus(204);
+            // return res.sendStatus(204);
+            return res.status(204).send({ success: true, message: "Operação realizada com sucesso" });
         }
         catch(e) {
-            return res.status(500).send(e);
+            return res.status(500).send({ success: false, message: e.message, docs: e });
         }
     }
 };
