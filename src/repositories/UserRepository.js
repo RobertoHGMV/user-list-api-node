@@ -10,7 +10,7 @@ module.exports = {
     },
 
     async getBy(page, qtdPerPage) {
-        
+        return await User.paginate({}, { page, limit: qtdPerPage });
     },
 
     async getByFirstName(firstName) {
@@ -22,8 +22,7 @@ module.exports = {
     },
 
     async update(user) {
-        console.log(user);
-        await User.updateOne(user);
+        await User.findByIdAndUpdate(user._id, user);
     },
 
     async delete(user) {

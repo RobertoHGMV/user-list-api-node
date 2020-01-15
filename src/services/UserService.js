@@ -9,6 +9,10 @@ module.exports = {
         return await UserRepository.getByFirstName(firstName);
     },
 
+    async getBy(page, qtdPerPage) {
+        return await UserRepository.getBy(page, qtdPerPage);
+    },
+
     async getAll() {
         return await UserRepository.getAll();
     },
@@ -29,8 +33,8 @@ module.exports = {
             throw { error: `Usuário com código ${id} não encontrado` };
         
         await UserRepository.update({ _id: user_id, firstName, lastName });
-
-        return this.getByKey(user_id);
+        
+        return await this.getByKey(user_id);
     },
 
     async delete(id) {

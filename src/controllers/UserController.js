@@ -16,11 +16,24 @@ module.exports = {
         }
     },
 
+    async getBy(req, res) {
+        try {
+            const { page, qtdPerPage } = req.params;
+
+            const users = await UserService.getBy(page, qtdPerPage);
+
+            return res.status(200).json({ docs: users });
+        }
+        catch(e) {
+            return res.status(500).send(e);
+        }
+    },
+
     async getAll(req, res) {
         try {
-            const user = await UserService.getAll();
+            const users = await UserService.getAll();
 
-            return res.status(200).json(user);
+            return res.status(200).json({ docs: users });
         }
         catch(e) {
             return res.status(500).json(e);
@@ -55,7 +68,7 @@ module.exports = {
             const { id, firstName, lastName } = req.body;
             
             const user = await UserService.update(id, firstName, lastName);
-
+            
             return res.status(200).json(user);
         }
         catch(e) {
@@ -69,7 +82,7 @@ module.exports = {
             
             await UserService.delete(id);
 
-            return res.send(204).json({ msg: 'Operação realizada com sucesso' });
+            return res.sendStatus(204);
         }
         catch(e) {
             return res.status(500).send(e);
